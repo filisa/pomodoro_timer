@@ -1,0 +1,50 @@
+body {
+    background-color: white;
+}
+
+.main {
+    display: grid;
+    place-items: center;
+}
+button {
+    color: azure;
+    background-color: pink;
+    height: 100px;
+    width: 300px;
+    border-radius: 30px;
+    font-size: 50px;
+    border-style: none;
+    margin: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+} 
+.hidden {
+    display: none;
+}
+
+h1 {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color: pink;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+.timer {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color: pink;
+    font-size: 69px;
+    font-family: 'bitcount-single-font';
+}
+
+img {
+    height: 100px;
+    padding-left: 700px;
+}
+
+@font-face {
+    font-family: 'bitcount-single-font'; /*a name to be used later*/
+    src: url(Bitcount_Single/BitcountSingle-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf); /*URL to font*/
+}
