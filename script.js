@@ -9,8 +9,10 @@ const timerBreak = document.getElementById('timer-break')
 
 //stopBtn.classList.add('hidden')
 let intervalTimer = null
-let second = 0
-let minuteFocusTime = 25
+let currentSecond = 0
+let currentMinuteFocusTime = 25
+let currentSecondBreak = 0
+let currentMinuteBreak = 5
 let minuteBreak = 5
 
 breakPopup.style.display = 'none'
@@ -18,26 +20,35 @@ breakPopup.style.display = 'none'
 //start button for focus time
 startBtn.addEventListener('click', function(){
     if (intervalTimer === null) {
+        startBtn.innerText = 'Start'
+        pauseBtn.innerText = 'Pause'
+        document.body.style.color = "#ffc0cb"
         document.body.classList.add('animation') 
-        updateTime(second,minuteFocusTime,timer)
-        renderTime(second,minuteFocusTime, timer)
-        //stopTimer(second,minuteFocusTime)
+        updateTime(currentSecond,currentMinuteFocusTime,timer)
+        renderTime(currentSecond,currentMinuteFocusTime, timer)
     }
 })
 
 //pause button for focus time
 pauseBtn.addEventListener('click', function(){
+    if (intervalTimer) {
+    document.body.classList.remove('animation') 
     document.body.style.background =  "#51859d"
     document.body.style.color = "#3a6f88"
     clearInterval(intervalTimer)
     intervalTimer = null
+    startBtn.innerText = 'Continue'
+    pauseBtn.innerText = 'Paused'
+    pauseBtn.style.color = "#50585c"
+    }
 })
 
 //break button for showing the new break overlay
 breakBtn.addEventListener('click', function(){
     if (breakPopup.style.display === 'none') {
+        breakBtn.style.display = 'none'
         timer.innerText = '25:00'
-        stopTimer(second,minuteFocusTime)
+        stopTimer(currentSecond,currentMinuteFocusTime)
         breakPopup.style.display = 'inline'
     } else { 
         breakPopup.style.display = 'none'
@@ -48,17 +59,20 @@ breakBtn.addEventListener('click', function(){
 //start break timer button
 startBreakTimerBtn.addEventListener('click', function(){
     if (intervalTimer === null) {
-        updateTime(second,minuteBreak,timerBreak)
-        renderTime(second,minuteBreak,timerBreak)
+        updateTime(currentSecondBreak,currentMinuteBreak,timerBreak,'break')
+        renderTime(currentSecondBreak,currentMinuteBreak,timerBreak)
     }
     }
 )
 
 stopBreakTimerBtn.addEventListener('click', function(){
-    if (intervalTimer) {
         clearInterval(intervalTimer)
         intervalTimer = null
-    }
+        currentSecondBreak = 0
+        currentMinuteBreak = 5
+        timerBreak.innerText = '05:00'
+        breakPopup.style.display = 'none'
+        breakBtn.style.display = 'inline'
     }
 )
 
@@ -70,7 +84,7 @@ function stopTimer(second,minute) {
 }
 
 //updates the timer every second
-function updateTime(second,minute,anyTimer) {
+function updateTime(second,minute,anyTimer,timerType='focus') {
     intervalTimer = setInterval(function() {
         if(second > 0 && second < 60) {
             second -= 1
@@ -79,6 +93,13 @@ function updateTime(second,minute,anyTimer) {
             second = 59
         } else {
             stopTimer(second,minute,anyTimer)
+        }
+        if (timerType === 'break') {
+            currentSecondBreak = second
+            currentMinuteBreak = minute
+        } else {
+            currentSecond = second
+            currentMinuteFocusTime = minute
         }
         renderTime(second,minute,anyTimer)
     }, 1000)
