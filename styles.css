@@ -46,5 +46,5 @@ img {
 
 @font-face {
     font-family: 'bitcount-single-font'; /*a name to be used later*/
-    src: url(Bitcount_Single/BitcountSingle-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf); /*URL to font*/
+    src: url(BitcountSingle-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf); /*URL to font*/
 }
