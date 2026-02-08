@@ -1,6 +1,8 @@
 const timer = document.getElementById('timer')
 const startBtn = document.getElementById('start-btn')
 const pauseBtn = document.getElementById('pause-btn')
+const breakBtn = document.getElementById('break-btn')
+const breakPopup = document.getElementById('break-popup')
 
 //stopBtn.classList.add('hidden')
 let intervalTimer = null
@@ -18,10 +20,20 @@ startBtn.addEventListener('click', function(){
 //pause button
 pauseBtn.addEventListener('click', function(){
     document.body.style.background =  "#51859d"
-    document.body.style.color = "#204556"
+    document.body.style.color = "#3a6f88"
     clearInterval(intervalTimer)
     intervalTimer = null
 })
+
+//break button 
+breakBtn.addEventListener('click', function(){
+    if (breakPopup.style.display === 'none') {
+        breakPopup.style.display = 'inline'
+    } else { 
+        breakPopup.style.display = 'none'
+    }
+}
+)
 
 function stopTimer() {
     clearInterval(intervalTimer)
