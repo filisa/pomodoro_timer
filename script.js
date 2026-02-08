@@ -1,9 +1,9 @@
 const timer = document.getElementById('timer')
 const startBtn = document.getElementById('start-btn')
-const stopBtn = document.getElementById('stop-btn')
+//const stopBtn = document.getElementById('stop-btn')
 const pauseBtn = document.getElementById('pause-btn')
 
-stopBtn.classList.add('hidden')
+//stopBtn.classList.add('hidden')
 let intervalTimer = null
 let second = 0
 let minute = 25
@@ -11,33 +11,37 @@ let minute = 25
 //start button
 startBtn.addEventListener('click', function(){
     if (intervalTimer === null) {
-        stopBtn.classList.remove('hidden')
-        startBtn.classList.add('hidden')
+        document.body.style.background =  "#ffffff"
+        document.body.style.color = "#ffc0cb"
+        //stopBtn.classList.remove('hidden')
+        //startBtn.classList.add('hidden')
         updateTime()
     }
 })
 
-//stop button
-stopBtn.addEventListener('click', function(){
-    if (intervalTimer !== null) {
-        stopTimer()
-        renderTime()
-    }
-})
+// stop button
+// stopBtn.addEventListener('click', function(){
+//     if (intervalTimer !== null) {
+//         stopTimer()
+//         renderTime()
+//     }
+// })
 
 //pause button
 pauseBtn.addEventListener('click', function(){
     document.body.style.background =  "#51859d"
+    document.body.style.color = "#204556"
+    clearInterval(intervalTimer)
+    intervalTimer = null
 })
 
-//what happens if Stop button is clicked or the times runs out of time
 function stopTimer() {
     clearInterval(intervalTimer)
     intervalTimer = null
     second = 0
     minute = 25
     startBtn.classList.remove('hidden')//show start button
-    stopBtn.classList.add('hidden')//hide stop button
+    //stopBtn.classList.add('hidden')//hide stop button
 }
 
 //updates the timer every second
