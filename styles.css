@@ -71,7 +71,6 @@ img {
 }
 
 .break-popup {
-    display: none;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -83,9 +82,9 @@ img {
     border-radius: 5px;
     box-shadow: 0px 0px 6px 2px #666;
     background-color: #93acc5;
-    color: whitesmoke;
+    color: rgb(57, 71, 92);
     font-family: 'bitcount-single-font';
-    font-size: 40px;
+    font-size: 45px;
     text-align: center;
 }
 
