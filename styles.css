@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+    background-color: rgb(186, 180, 180);
     color: #ffc0cb;
 }
 
@@ -10,7 +10,7 @@ body {
 button {
     color: inherit;
     height: 100px;
-    width: 300px;
+    width: 350px;
     border-radius: 30px;
     font-size: 50px;
     border-style: none;
@@ -45,4 +45,50 @@ img {
 @font-face {
     font-family: 'bitcount-single-font'; /*a name to be used later*/
     src: url(BitcountSingle-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf); /*URL to font*/
+}
+
+@keyframes myAnimation {
+  0%   {background-color: #ffffff;}
+  25%  {background-color: #af7777;}
+  50%  {background-color: #794242;}
+  100% {background-color: #0d0505;}
+}
+
+.animation {
+    animation-name: myAnimation;
+    animation-duration: 100s;
+}
+
+.break-btn {
+    height: 40px;
+    font-size: 20px;
+    width: 200px;
+    border-style: dashed;
+    border-color: #bdd1d6;
+    color: #53767f;
+    padding: 0;
+    margin: 0;
+}
+
+.break-popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    height: 500px;
+    width: 500px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px 2px #666;
+    background-color: #93acc5;
+    color: rgb(57, 71, 92);
+    font-family: 'bitcount-single-font';
+    font-size: 45px;
+    text-align: center;
+}
+
+.start-break-btn {
+    color:#242838;
+    width: 200px;
 }
