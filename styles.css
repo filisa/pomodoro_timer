@@ -3,35 +3,56 @@
 	color: #f9c39a;
 }
 
+html,
 body {
 	background-color: var(--background);
 	padding: 0;
 	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 @font-face {
 	font-family: Kompot;
 	src: url(fonts/KompotDisplayDemo.otf);
 }
-
+#paused-state-overlay {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(255, 255, 255, 0.362);
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
 .tomato {
 	position: absolute;
-	top: 15%;
+	top: 17%;
 	left: 17%;
 	height: 70vw;
 	z-index: 1;
+}
+
+.pulsating-tomato {
+	animation-name: pulse;
+	animation-duration: 5s;
+	animation-iteration-count: 1;
 }
 
 .main {
 	display: grid;
 	place-items: center;
 	z-index: 2;
+	position: relative;
+	z-index: 101;
 }
 
 .timer-div {
 	display: flex;
 	flex-direction: column;
 	z-index: 2;
-	background-color: #f9c39a6f;
+	background-color: #f5764c82;
 	padding: 2vw;
 	border-radius: 20px;
 }
@@ -97,11 +118,10 @@ h1 {
 	justify-content: center;
 	align-items: center;
 	font-size: 69px;
-	font-family:
-		Kompot, "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
-		Geneva, Verdana, sans-serif;
+	font-family: Verdana, "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 	font-weight: 900;
-	background-color: #f5764c;
+	background-color: #f9c39a;
+	color: #f5764c;
 	padding: 1vw;
 	margin: 1vw;
 	border-radius: 20px;
@@ -117,57 +137,31 @@ h1 {
 	font-family: "bitcount-single-font"; /*a name to be used later*/
 	src: url(BitcountSingle-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf); /*URL to font*/
 }
-/* 
-@keyframes myAnimation {
+
+@keyframes pulse {
 	0% {
-		background-color: #ffffff;
+		animation-timing-function: ease-out;
+		transform: scale(1);
+		transform-origin: center center;
 	}
-	25% {
-		background-color: #af7777;
-	}
-	50% {
-		background-color: #794242;
-	}
-	100% {
-		background-color: #0d0505;
-	}
-} */
 
-/* .animation {
-	animation-name: myAnimation;
-	animation-duration: 100s;
-} */
+	10% {
+		animation-timing-function: ease-in;
+		transform: scale(0.91);
+	}
 
-/* .break-btn {
-	height: 40px;
-	font-size: 20px;
-	width: 200px;
-	border-style: dashed;
-	border-color: #bdd1d6;
-	color: #53767f;
-	padding: 0;
-	margin: 0;
-} */
+	17% {
+		animation-timing-function: ease-out;
+		transform: scale(0.98);
+	}
 
-.break-popup {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	margin: auto;
-	height: 500px;
-	width: 500px;
-	border-radius: 5px;
-	box-shadow: 0px 0px 6px 2px #666;
-	background-color: #93acc5;
-	color: rgb(57, 71, 92);
-	font-family: "bitcount-single-font";
-	font-size: 45px;
-	text-align: center;
+	33% {
+		animation-timing-function: ease-in;
+		transform: scale(0.87);
+	}
+
+	45% {
+		animation-timing-function: ease-out;
+		transform: scale(1);
+	}
 }
-
-/* .start-break-btn {
-	color: #242838;
-	width: 200px;
-} */

@@ -6,8 +6,9 @@ const breakPopup = document.getElementById("break-popup");
 const startBreakTimerBtn = document.getElementById("start-break-timer-btn");
 const stopBreakTimerBtn = document.getElementById("stop-break-timer-btn");
 const timerBreak = document.getElementById("timer-break");
+const tomato = document.getElementById("tomato");
+const body = document.body;
 
-//stopBtn.classList.add('hidden')
 let intervalTimer = null;
 let currentSecond = 0;
 let currentMinuteFocusTime = 25;
@@ -20,65 +21,32 @@ let minuteBreak = 5;
 //start button for focus time
 startBtn.addEventListener("click", function () {
 	if (intervalTimer === null) {
-		startBtn.innerText = "Start";
-		pauseBtn.innerText = "Pause";
-		document.body.style.color = "#f7e456";
+		document.body.style.color = "#e53c0d";
 		document.body.classList.add("animation");
 		updateTime(currentSecond, currentMinuteFocusTime, timer);
 		renderTime(currentSecond, currentMinuteFocusTime, timer);
+		tomato.classList.add("pulsating-tomato");
+		//remove pause overlay
+		const pauseScreen = document.querySelector("#paused-state-overlay");
+		document.body.removeChild(pauseScreen);
 	}
 });
 
-//pause button for focus time
+//pause button
 pauseBtn.addEventListener("click", function () {
-	if (intervalTimer) {
-		document.body.classList.remove("animation");
-		document.body.style.background = "#51859d";
-		document.body.style.color = "#3a6f88";
+	if (intervalTimer != null) {
 		clearInterval(intervalTimer);
 		intervalTimer = null;
-		startBtn.innerText = "Continue";
-		pauseBtn.innerText = "Paused";
-		pauseBtn.style.color = "#50585c";
+		timer.textContent = "PAUSED";
+		const pausedOverlay = document.createElement("div");
+		pausedOverlay.id = "paused-state-overlay";
+		body.appendChild(pausedOverlay);
+		startBtn.style.position = "relative";
+		startBtn.style.zIndex = "101";
+		timer.style.position = "relative";
+		timer.style.zIndex = "101";
 	}
 });
-
-//break button for showing the new break overlay
-breakBtn.addEventListener("click", function () {
-	if (breakPopup.style.display === "none") {
-		breakBtn.style.display = "none";
-		timer.innerText = "25:00";
-		stopTimer(currentSecond, currentMinuteFocusTime);
-		breakPopup.style.display = "inline";
-	} else {
-		breakPopup.style.display = "none";
-	}
-});
-
-//start break timer button
-startBreakTimerBtn.addEventListener("click", function () {
-	if (intervalTimer === null) {
-		updateTime(currentSecondBreak, currentMinuteBreak, timerBreak, "break");
-		renderTime(currentSecondBreak, currentMinuteBreak, timerBreak);
-	}
-});
-
-stopBreakTimerBtn.addEventListener("click", function () {
-	clearInterval(intervalTimer);
-	intervalTimer = null;
-	currentSecondBreak = 0;
-	currentMinuteBreak = 5;
-	timerBreak.innerText = "05:00";
-	breakPopup.style.display = "none";
-	breakBtn.style.display = "inline";
-});
-
-function stopTimer(second, minute) {
-	clearInterval(intervalTimer);
-	intervalTimer = null;
-	second = 0;
-	minute = 25;
-}
 
 //updates the timer every second
 function updateTime(second, minute, anyTimer, timerType = "focus") {
