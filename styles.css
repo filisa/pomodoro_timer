@@ -1,94 +1,173 @@
+:root {
+	background: #f5764c;
+	color: #f9c39a;
+}
+
 body {
-    background-color: rgb(186, 180, 180);
-    color: #ffc0cb;
+	background-color: var(--background);
+	padding: 0;
+	margin: 0;
+}
+@font-face {
+	font-family: Kompot;
+	src: url(fonts/KompotDisplayDemo.otf);
+}
+
+.tomato {
+	position: absolute;
+	top: 15%;
+	left: 17%;
+	height: 70vw;
+	z-index: 1;
 }
 
 .main {
-    display: grid;
-    place-items: center;
+	display: grid;
+	place-items: center;
+	z-index: 2;
 }
+
+.timer-div {
+	display: flex;
+	flex-direction: column;
+	z-index: 2;
+	background-color: #f9c39a6f;
+	padding: 2vw;
+	border-radius: 20px;
+}
+
+.buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#start-btn,
+#pause-btn {
+	background-color: red;
+	background: none;
+	border: none;
+	padding: 0;
+	height: fit-content;
+
+	:hover {
+		background-color: #f5764c;
+		border-radius: 20px;
+	}
+}
+
+.btn_img {
+	height: 10vw;
+}
+
 button {
-    color: inherit;
-    height: 100px;
-    width: 350px;
-    border-radius: 30px;
-    font-size: 50px;
-    border-style: none;
-    margin: 10px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-} 
+	/* color: inherit;
+	height: 100px;
+	width: 350px;
+	border-radius: 30px;
+	font-size: 50px;
+	border-style: none;
+	margin: 10px;
+	font-family:
+		"Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+		"Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
+	z-index: 2;
+}
 .hidden {
-    display: none;
+	display: none;
 }
 
 h1 {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family:
+		Kompot, "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+		Geneva, Verdana, sans-serif;
+	font-weight: bold;
+	font-size: 9rem;
+	color: var(--color);
+	z-index: -4;
+	margin: 0;
+	margin-top: 2vw;
 }
 
 .timer {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 69px;
-    font-family: 'bitcount-single-font';
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 69px;
+	font-family:
+		"Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva,
+		Verdana, sans-serif;
+	font-weight: 900;
+	background-color: #f5764c;
+	padding: 1vw;
+	margin: 1vw;
+	border-radius: 20px;
+	z-index: 2;
 }
 
-img {
-    height: 100px;
-    padding-left: 700px;
-}
+/* img {
+	height: 100px;
+	padding-left: 700px;
+} */
 
 @font-face {
-    font-family: 'bitcount-single-font'; /*a name to be used later*/
-    src: url(BitcountSingle-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf); /*URL to font*/
+	font-family: "bitcount-single-font"; /*a name to be used later*/
+	src: url(BitcountSingle-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf); /*URL to font*/
 }
-
+/* 
 @keyframes myAnimation {
-  0%   {background-color: #ffffff;}
-  25%  {background-color: #af7777;}
-  50%  {background-color: #794242;}
-  100% {background-color: #0d0505;}
-}
+	0% {
+		background-color: #ffffff;
+	}
+	25% {
+		background-color: #af7777;
+	}
+	50% {
+		background-color: #794242;
+	}
+	100% {
+		background-color: #0d0505;
+	}
+} */
 
-.animation {
-    animation-name: myAnimation;
-    animation-duration: 100s;
-}
+/* .animation {
+	animation-name: myAnimation;
+	animation-duration: 100s;
+} */
 
-.break-btn {
-    height: 40px;
-    font-size: 20px;
-    width: 200px;
-    border-style: dashed;
-    border-color: #bdd1d6;
-    color: #53767f;
-    padding: 0;
-    margin: 0;
-}
+/* .break-btn {
+	height: 40px;
+	font-size: 20px;
+	width: 200px;
+	border-style: dashed;
+	border-color: #bdd1d6;
+	color: #53767f;
+	padding: 0;
+	margin: 0;
+} */
 
 .break-popup {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    height: 500px;
-    width: 500px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 6px 2px #666;
-    background-color: #93acc5;
-    color: rgb(57, 71, 92);
-    font-family: 'bitcount-single-font';
-    font-size: 45px;
-    text-align: center;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
+	height: 500px;
+	width: 500px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 6px 2px #666;
+	background-color: #93acc5;
+	color: rgb(57, 71, 92);
+	font-family: "bitcount-single-font";
+	font-size: 45px;
+	text-align: center;
 }
 
-.start-break-btn {
-    color:#242838;
-    width: 200px;
-}
+/* .start-break-btn {
+	color: #242838;
+	width: 200px;
+} */
