@@ -11,6 +11,7 @@ body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+	color: #e53c0d;
 }
 @font-face {
 	font-family: Kompot;
@@ -82,16 +83,6 @@ body {
 }
 
 button {
-	/* color: inherit;
-	height: 100px;
-	width: 350px;
-	border-radius: 30px;
-	font-size: 50px;
-	border-style: none;
-	margin: 10px;
-	font-family:
-		"Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-		"Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
 	z-index: 2;
 }
 .hidden {
@@ -128,11 +119,6 @@ h1 {
 	z-index: 2;
 }
 
-/* img {
-	height: 100px;
-	padding-left: 700px;
-} */
-
 @font-face {
 	font-family: "bitcount-single-font"; /*a name to be used later*/
 	src: url(BitcountSingle-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf); /*URL to font*/
@@ -163,5 +149,20 @@ h1 {
 	45% {
 		animation-timing-function: ease-out;
 		transform: scale(1);
+	}
+}
+
+.rotating-tomato {
+	animation-name: rotateIn;
+	animation-duration: 100s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes rotateIn {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }

@@ -21,8 +21,7 @@ let minuteBreak = 5;
 //start button for focus time
 startBtn.addEventListener("click", function () {
 	if (intervalTimer === null) {
-		document.body.style.color = "#e53c0d";
-		document.body.classList.add("animation");
+		tomato.classList.add("rotating-tomato");
 		updateTime(currentSecond, currentMinuteFocusTime, timer);
 		renderTime(currentSecond, currentMinuteFocusTime, timer);
 		tomato.classList.add("pulsating-tomato");
@@ -35,6 +34,7 @@ startBtn.addEventListener("click", function () {
 //pause button
 pauseBtn.addEventListener("click", function () {
 	if (intervalTimer != null) {
+		tomato.classList.remove("rotating-tomato");
 		clearInterval(intervalTimer);
 		intervalTimer = null;
 		timer.textContent = "PAUSED";
