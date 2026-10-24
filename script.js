@@ -8,6 +8,7 @@ const stopBreakTimerBtn = document.getElementById("stop-break-timer-btn");
 const timerBreak = document.getElementById("timer-break");
 const tomato = document.getElementById("tomato");
 const body = document.body;
+let backgroundMusic = document.getElementById("background-music");
 
 let intervalTimer = null;
 let currentSecond = 0;
@@ -25,15 +26,35 @@ startBtn.addEventListener("click", function () {
 		updateTime(currentSecond, currentMinuteFocusTime, timer);
 		renderTime(currentSecond, currentMinuteFocusTime, timer);
 		tomato.classList.add("pulsating-tomato");
-		//remove pause overlay
+		//remove pause overlay only if the screen was paused before
 		const pauseScreen = document.querySelector("#paused-state-overlay");
-		document.body.removeChild(pauseScreen);
+		if (pauseScreen) {
+			document.body.removeChild(pauseScreen);
+		}
+		//select a random track and turn on nice lofi music
+		getRandomTrack();
+		backgroundMusic.play();
 	}
 });
 
 //pause button
 pauseBtn.addEventListener("click", function () {
 	if (intervalTimer != null) {
+		//pause music
+		setTimeout(() => {
+			backgroundMusic.volume = 0.7;
+		}, 500);
+		setTimeout(() => {
+			backgroundMusic.volume = 0.4;
+		}, 1000);
+		setTimeout(() => {
+			backgroundMusic.volume = 0.2;
+		}, 1500);
+		setTimeout(() => {
+			backgroundMusic.pause();
+			//or the next track will be very quiet
+			backgroundMusic.volume = 1;
+		}, 2000);
 		tomato.classList.remove("rotating-tomato");
 		clearInterval(intervalTimer);
 		intervalTimer = null;
@@ -81,4 +102,26 @@ function renderTime(second, minute, anyTimer) {
 		minuteString = `0${minuteString}`;
 	}
 	anyTimer.innerText = `${minuteString}:${secondString}`;
+}
+
+//get the random track, but meow track has a higher chance of getting picked :D
+function getRandomTrack() {
+	musicTracksArray = [
+		"music/lofi-02-sunday-window.mp3",
+		"music/lofi-03-rainy-platform.mp3",
+		"music/lofi-04-late-library.mp3",
+		"music/lofi-05-peach-sky.mp3",
+		"music/lofi-06-blue-hour.mp3",
+		"music/lofi-07-soft-focus.mp3",
+		"music/lofi-08-paper-moons.mp3",
+		"music/lofi-09-coffee-break.mp3",
+		"music/lofi-10-night-notes.mp3",
+		"music/lofi-focus.mp3",
+		"music/meow.mp3",
+		"music/meow.mp3",
+		"music/meow.mp3",
+		"music/meow.mp3"
+	];
+	getRandomNumber = Math.floor(Math.random() * 14);
+	backgroundMusic.src = `${musicTracksArray[getRandomNumber]}`;
 }
