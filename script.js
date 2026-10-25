@@ -9,6 +9,8 @@ const timerBreak = document.getElementById("timer-break");
 const tomato = document.getElementById("tomato");
 const body = document.body;
 let backgroundMusic = document.getElementById("background-music");
+const tooltip = document.getElementById("tolltip");
+const tooltipText = document.getElementById("tooltip-text");
 
 let intervalTimer = null;
 let currentSecond = 0;
@@ -16,12 +18,44 @@ let currentMinuteFocusTime = 25;
 let currentSecondBreak = 0;
 let currentMinuteBreak = 5;
 let minuteBreak = 5;
+let timeouts = [];
 
+//music gradually gets quieter when the pause it clicked
+let timeout = function () {
+	timeouts.push(
+		setTimeout(() => {
+			backgroundMusic.volume = 0.7;
+		}, 200)
+	);
+	timeouts.push(
+		setTimeout(() => {
+			backgroundMusic.volume = 0.7;
+		}, 500)
+	);
+	timeouts.push(
+		setTimeout(() => {
+			backgroundMusic.volume = 0.7;
+		}, 800)
+	);
+	timeouts.push(
+		setTimeout(() => {
+			backgroundMusic.pause();
+		}, 1100)
+	);
+};
+
+//clear timeouts when you start the music again
+let clearAllTimeouts = function () {
+	timeout();
+	timeouts.forEach((id) => clearTimeout(id));
+	timeouts = [];
+};
 // breakPopup.style.display = 'none'
 
 //start button for focus time
 startBtn.addEventListener("click", function () {
 	if (intervalTimer === null) {
+		clearAllTimeouts();
 		tomato.classList.add("rotating-tomato");
 		updateTime(currentSecond, currentMinuteFocusTime, timer);
 		renderTime(currentSecond, currentMinuteFocusTime, timer);
@@ -30,6 +64,7 @@ startBtn.addEventListener("click", function () {
 		const pauseScreen = document.querySelector("#paused-state-overlay");
 		if (pauseScreen) {
 			document.body.removeChild(pauseScreen);
+			backgroundMusic.volume = 1;
 		}
 		//select a random track and turn on nice lofi music
 		getRandomTrack();
@@ -41,21 +76,10 @@ startBtn.addEventListener("click", function () {
 pauseBtn.addEventListener("click", function () {
 	if (intervalTimer != null) {
 		//pause music
-		setTimeout(() => {
-			backgroundMusic.volume = 0.7;
-		}, 500);
-		setTimeout(() => {
-			backgroundMusic.volume = 0.4;
-		}, 1000);
-		setTimeout(() => {
-			backgroundMusic.volume = 0.2;
-		}, 1500);
-		setTimeout(() => {
-			backgroundMusic.pause();
-			//or the next track will be very quiet
-			backgroundMusic.volume = 1;
-		}, 2000);
+		timeout();
+		//stop tomato rotation
 		tomato.classList.remove("rotating-tomato");
+		//pause the timer
 		clearInterval(intervalTimer);
 		intervalTimer = null;
 		timer.textContent = "PAUSED";
@@ -125,3 +149,10 @@ function getRandomTrack() {
 	getRandomNumber = Math.floor(Math.random() * 14);
 	backgroundMusic.src = `${musicTracksArray[getRandomNumber]}`;
 }
+
+tooltip.addEventListener("mouseover", function () {
+	tooltipText.style.display = "inline";
+});
+tooltip.addEventListener("mouseleave", function () {
+	tooltipText.style.display = "none";
+});

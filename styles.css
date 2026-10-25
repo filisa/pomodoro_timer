@@ -1,6 +1,14 @@
+@font-face {
+	font-family: "Kompot";
+	src: url(fonts/KompotDisplayDemo.otf);
+}
+
 :root {
 	background: #f5764c;
 	color: #f9c39a;
+	font-family:
+		"Kompot", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+		Geneva, Verdana, sans-serif;
 }
 
 html,
@@ -11,12 +19,8 @@ body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	color: #e53c0d;
 }
-@font-face {
-	font-family: Kompot;
-	src: url(fonts/KompotDisplayDemo.otf);
-}
+
 #paused-state-overlay {
 	position: fixed;
 	inset: 0;
@@ -93,15 +97,13 @@ h1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-family:
-		Kompot, "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
-		Geneva, Verdana, sans-serif;
+	font-family: var(--font);
 	font-weight: bold;
 	font-size: 9rem;
-	color: var(--color);
 	z-index: -4;
 	margin: 0;
 	margin-top: 2vw;
+	color: #e53c0d;
 }
 
 .timer {
@@ -165,4 +167,30 @@ h1 {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+.tooltip-div {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	top: 0;
+	right: 10vw;
+	height: 5vw;
+	z-index: 10000;
+}
+.tolltip {
+	opacity: 60%;
+	z-index: 10000;
+}
+.tooltip-text {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	width: 30vw;
+	display: none;
+	z-index: 10000;
+	height: fit-content;
+	background-color: #e53c0d;
+	border-radius: 20px 0px 20px 20px;
+	padding: 1vw;
+	color: rgba(226, 213, 202, 0.918);
+	border: #f9c39a 1px solid;
+	margin-top: 4vw;
 }
