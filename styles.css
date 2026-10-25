@@ -200,12 +200,15 @@ h1 {
 	flex-direction: row;
 	top: 0;
 	right: 10vw;
-	height: 5vw;
+	height: 10vw;
 	z-index: 10000;
 }
 .tolltip {
 	opacity: 60%;
 	z-index: 10000;
+	margin: 2vw;
+	height: 7vw;
+	padding-left: 2vw;
 }
 .tooltip-text {
 	font-family: Georgia, "Times New Roman", Times, serif;
@@ -215,8 +218,12 @@ h1 {
 	height: fit-content;
 	background-color: #e53c0d;
 	border-radius: 20px 0px 20px 20px;
-	padding: 1vw;
+	padding: 2vw;
 	color: rgba(226, 213, 202, 0.918);
 	border: #f9c39a 1px solid;
-	margin-top: 4vw;
+	font-size: clamp(10px, 0.8rem, 0.8rem);
+}
+
+.inline {
+	display: "inline";
 }

@@ -156,3 +156,11 @@ tooltip.addEventListener("mouseover", function () {
 tooltip.addEventListener("mouseleave", function () {
 	tooltipText.style.display = "none";
 });
+
+body.addEventListener("click", function () {
+	if (tooltipText.display == "inline") {
+		tooltipText.classList.remove("inline");
+	} else {
+		tooltipText.classList.add("inline");
+	}
+});
