@@ -175,11 +175,27 @@ h1 {
 		padding: 2vw;
 	}
 	.timer-div {
-		height: 18vw;
+		height: 30vw;
 	}
 	.timer {
 		height: 18vw;
 		font-size: clamp(50px, 3rem, 4rem);
+	}
+	.tolltip {
+		display: none;
+	}
+	.mobile-tooltip-text {
+		display: block;
+		font-family: Georgia, "Times New Roman", Times, serif;
+		width: 90%;
+		margin-top: 8vw;
+		height: fit-content;
+		background-color: #e53c0d;
+		border-radius: 20px;
+		padding: 3vw;
+		color: rgba(226, 213, 202, 0.918);
+		border: #f9c39a 1px solid;
+		font-size: clamp(10px, 0.8rem, 0.8rem);
 	}
 }
 
@@ -194,6 +210,12 @@ h1 {
 	}
 }
 
+@media (400px<width<2100px) {
+	.mobile-tooltip-text {
+		display: none;
+	}
+}
+
 .tooltip-div {
 	position: absolute;
 	display: flex;
@@ -201,6 +223,7 @@ h1 {
 	top: 0;
 	right: 10vw;
 	height: 10vw;
+	width: fit-content;
 	z-index: 10000;
 }
 .tolltip {
