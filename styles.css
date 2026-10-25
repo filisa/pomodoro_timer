@@ -166,3 +166,23 @@ h1 {
 		transform: rotate(360deg);
 	}
 }
+
+.tolltip {
+	position: absolute;
+	top: 0;
+	right: 10vw;
+	height: 5vw;
+	opacity: 60%;
+	z-index: 10000;
+}
+.tooltip-text {
+	display: none;
+	z-index: 10000;
+	position: absolute;
+	top: 1vw;
+	right: 15vw;
+	background-color: #bcce37c2;
+	border-radius: 20px;
+	padding: 1vw;
+	color: rgba(45, 39, 39, 0.7);
+}
