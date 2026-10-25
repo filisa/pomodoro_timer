@@ -152,7 +152,6 @@ function getRandomTrack() {
 
 tooltip.addEventListener("mouseover", function () {
 	tooltipText.style.display = "inline";
-	tooltipText.style.color = "black";
 });
 tooltip.addEventListener("mouseleave", function () {
 	tooltipText.style.display = "none";
