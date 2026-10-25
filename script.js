@@ -11,6 +11,7 @@ const body = document.body;
 let backgroundMusic = document.getElementById("background-music");
 const tooltip = document.getElementById("tolltip");
 const tooltipText = document.getElementById("tooltip-text");
+const mobileTooltipText = document.getElementById("mobile-tooltip-text");
 
 let intervalTimer = null;
 let currentSecond = 0;
@@ -55,6 +56,7 @@ let clearAllTimeouts = function () {
 //start button for focus time
 startBtn.addEventListener("click", function () {
 	if (intervalTimer === null) {
+		mobileTooltipText.style.opacity = "100%";
 		clearAllTimeouts();
 		tomato.classList.add("rotating-tomato");
 		updateTime(currentSecond, currentMinuteFocusTime, timer);
@@ -90,6 +92,7 @@ pauseBtn.addEventListener("click", function () {
 		startBtn.style.zIndex = "101";
 		timer.style.position = "relative";
 		timer.style.zIndex = "101";
+		mobileTooltipText.style.opacity = "50%";
 	}
 });
 
