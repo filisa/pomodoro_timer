@@ -1,11 +1,6 @@
 const timer = document.getElementById("timer");
 const startBtn = document.getElementById("start-btn");
 const pauseBtn = document.getElementById("pause-btn");
-const breakBtn = document.getElementById("break-btn");
-const breakPopup = document.getElementById("break-popup");
-const startBreakTimerBtn = document.getElementById("start-break-timer-btn");
-const stopBreakTimerBtn = document.getElementById("stop-break-timer-btn");
-const timerBreak = document.getElementById("timer-break");
 const tomato = document.getElementById("tomato");
 const body = document.body;
 let backgroundMusic = document.getElementById("background-music");
@@ -14,12 +9,13 @@ const tooltipText = document.getElementById("tooltip-text");
 const mobileTooltipText = document.getElementById("mobile-tooltip-text");
 
 let intervalTimer = null;
-let currentSecond = 0;
-let currentMinuteFocusTime = 25;
+let currentSecond = 10;
+let currentMinuteFocusTime = 0;
 let currentSecondBreak = 0;
 let currentMinuteBreak = 5;
 let minuteBreak = 5;
 let timeouts = [];
+let isBreak = false;
 
 //music gradually gets quieter when the pause it clicked
 let timeout = function () {
@@ -61,7 +57,6 @@ startBtn.addEventListener("click", function () {
 		tomato.classList.add("rotating-tomato");
 		updateTime(currentSecond, currentMinuteFocusTime, timer);
 		renderTime(currentSecond, currentMinuteFocusTime, timer);
-		tomato.classList.add("pulsating-tomato");
 		//remove pause overlay only if the screen was paused before
 		const pauseScreen = document.querySelector("#paused-state-overlay");
 		if (pauseScreen) {
@@ -76,7 +71,7 @@ startBtn.addEventListener("click", function () {
 
 //pause button
 pauseBtn.addEventListener("click", function () {
-	if (intervalTimer != null) {
+	if (intervalTimer != null && isBreak === false) {
 		//pause music
 		timeout();
 		//stop tomato rotation
@@ -92,7 +87,46 @@ pauseBtn.addEventListener("click", function () {
 		startBtn.style.zIndex = "101";
 		timer.style.position = "relative";
 		timer.style.zIndex = "101";
+		breakBtn.style.position = "relative";
+		breakBtn.style.zIndex = "101";
 		mobileTooltipText.style.opacity = "50%";
+	} else {
+		//pause music
+		timeout();
+		//stop tomato rotation
+		tomato.classList.remove("rotating-tomato");
+		//pause the timer
+		clearInterval(intervalTimer);
+		intervalTimer = null;
+		timer.textContent = "PAUSED";
+	}
+});
+
+nextBtn.addEventListener("click", function () {
+	if (isBreak === false) {
+		isBreak = true;
+		//pause music
+		timeout();
+		//stop tomato rotation
+		tomato.classList.remove("rotating-tomato");
+		//pause the timer
+		clearInterval(intervalTimer);
+		intervalTimer = null;
+		setTimeout(() => {
+			timer.textContent = "BREAK 5 MIN";
+		}, 700);
+		setTimeout(() => {
+			updateTime(currentSecond, currentMinuteBreak, timer);
+			renderTime(currentSecond, currentMinuteBreak, timer);
+			const pausedOverlay = document.createElement("div");
+			pausedOverlay.id = "paused-state-overlay";
+			body.appendChild(pausedOverlay);
+			startBtn.style.position = "relative";
+			startBtn.style.zIndex = "101";
+			timer.style.position = "relative";
+			timer.style.zIndex = "101";
+			mobileTooltipText.style.opacity = "50%";
+		}, 1300);
 	}
 });
 
@@ -104,8 +138,10 @@ function updateTime(second, minute, anyTimer, timerType = "focus") {
 		} else if (minute > 0) {
 			minute = minute - 1;
 			second = 59;
-		} else {
-			stopTimer(second, minute, anyTimer);
+		} else if (second === 0 && minute === 0) {
+			console.log("break starts now");
+			updateTime(currentSecond, currentMinuteBreak, timer);
+			renderTime(currentSecond, currentMinuteBreak, timer);
 		}
 		if (timerType === "break") {
 			currentSecondBreak = second;
@@ -159,3 +195,6 @@ tooltip.addEventListener("mouseover", function () {
 tooltip.addEventListener("mouseleave", function () {
 	tooltipText.style.display = "none";
 });
+
+
+const thisVar = theLocalStor ?? []
