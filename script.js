@@ -7,10 +7,12 @@ let backgroundMusic = document.getElementById("background-music");
 const tooltip = document.getElementById("tolltip");
 const tooltipText = document.getElementById("tooltip-text");
 const mobileTooltipText = document.getElementById("mobile-tooltip-text");
+const toggleSwitch = document.getElementById("toggle-switch");
+const toggleDiv = document.getElementById("toggle");
 
 let intervalTimer = null;
-let currentSecond = 10;
-let currentMinuteFocusTime = 0;
+let currentSecond = 0;
+let currentMinuteFocusTime = 25;
 let currentSecondBreak = 0;
 let currentMinuteBreak = 5;
 let minuteBreak = 5;
@@ -62,6 +64,7 @@ startBtn.addEventListener("click", function () {
 		if (pauseScreen) {
 			document.body.removeChild(pauseScreen);
 			backgroundMusic.volume = 1;
+			toggleDiv.classList.remove("semi-transparent");
 		}
 		//select a random track and turn on nice lofi music
 		getRandomTrack();
@@ -90,6 +93,7 @@ pauseBtn.addEventListener("click", function () {
 		breakBtn.style.position = "relative";
 		breakBtn.style.zIndex = "101";
 		mobileTooltipText.style.opacity = "50%";
+		toggleDiv.classList.add("semi-transparent");
 	} else {
 		//pause music
 		timeout();
@@ -99,34 +103,7 @@ pauseBtn.addEventListener("click", function () {
 		clearInterval(intervalTimer);
 		intervalTimer = null;
 		timer.textContent = "PAUSED";
-	}
-});
-
-nextBtn.addEventListener("click", function () {
-	if (isBreak === false) {
-		isBreak = true;
-		//pause music
-		timeout();
-		//stop tomato rotation
-		tomato.classList.remove("rotating-tomato");
-		//pause the timer
-		clearInterval(intervalTimer);
-		intervalTimer = null;
-		setTimeout(() => {
-			timer.textContent = "BREAK 5 MIN";
-		}, 700);
-		setTimeout(() => {
-			updateTime(currentSecond, currentMinuteBreak, timer);
-			renderTime(currentSecond, currentMinuteBreak, timer);
-			const pausedOverlay = document.createElement("div");
-			pausedOverlay.id = "paused-state-overlay";
-			body.appendChild(pausedOverlay);
-			startBtn.style.position = "relative";
-			startBtn.style.zIndex = "101";
-			timer.style.position = "relative";
-			timer.style.zIndex = "101";
-			mobileTooltipText.style.opacity = "50%";
-		}, 1300);
+		toggleDiv.classList.add("semi-transparent");
 	}
 });
 
@@ -196,5 +173,32 @@ tooltip.addEventListener("mouseleave", function () {
 	tooltipText.style.display = "none";
 });
 
-
-const thisVar = theLocalStor ?? []
+toggleSwitch.addEventListener("change", function () {
+	if (toggleSwitch.checked) {
+		if (isBreak === false) {
+			isBreak = true;
+			//pause music
+			timeout();
+			//stop tomato rotation
+			tomato.classList.remove("rotating-tomato");
+			//pause the timer
+			clearInterval(intervalTimer);
+			intervalTimer = null;
+			setTimeout(() => {
+				timer.textContent = "BREAK 5 MIN";
+			}, 700);
+			setTimeout(() => {
+				updateTime(currentSecond, currentMinuteBreak, timer);
+				renderTime(currentSecond, currentMinuteBreak, timer);
+				const pausedOverlay = document.createElement("div");
+				pausedOverlay.id = "paused-state-overlay";
+				body.appendChild(pausedOverlay);
+				startBtn.style.position = "relative";
+				startBtn.style.zIndex = "101";
+				timer.style.position = "relative";
+				timer.style.zIndex = "101";
+				mobileTooltipText.style.opacity = "50%";
+			}, 1300);
+		}
+	}
+});
