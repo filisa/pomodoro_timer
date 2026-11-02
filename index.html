@@ -3,16 +3,31 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- FEEDBACK: manual cache-busting (?v=3) is easy to forget; use a build step with
+			content hashes if this grows. Add a <meta name="description"> too. -->
 		<link rel="stylesheet" href="styles.css?v=3" />
 		<link rel="icon" type="image/x-icon" href="images/timer.svg" />
 		<script src="script.js" defer></script>
 		<title>Pomodoro Timer</title>
 	</head>
 	<body>
+		<!-- BUG: <image> is not a valid HTML element (browsers treat it as <img>, and
+			it must not have a closing tag). Use <img ... alt="..."> everywhere here, with
+			meaningful alt text (alt="" for decorative images). Same for the tooltip and
+			button images below.
+			BUG: "images/Pomodoro timer.png" does not exist in the repo (and has a space in
+			the name); rename e.g. pomodoro-timer.png and add the file.
+			A decorative background image would be better done in CSS. -->
 		<image id="tomato" class="tomato" src="images/Pomodoro timer.png"></image>
+		<!-- SEMANTICS: use <main> instead of generic <div>s, and an empty <footer> should
+			be removed or filled. Only one <h1> per page is fine here. -->
 		<div>
 			<h1>Pomodoro Timer</h1>
 			<div class="main">
+				<!-- DUPLICATION: the explanation text is copy-pasted twice (desktop + mobile).
+					Keep it once and restyle with CSS media queries.
+					A11Y: the tooltip trigger should be a <button> (focusable) with
+					aria-describedby="tooltip-text" and role="tooltip" on the text. -->
 				<div class="tooltip-div">
 					<span id="tooltip-text" class="tooltip-text"
 						>Pomodoro is a time-management method. The original technique
@@ -25,8 +40,11 @@
 					<image id="tolltip" class="tolltip" src="images/tooltip.svg"> </image>
 				</div>
 				<div class="timer-div">
+					<!-- A11Y: make the timer a <time>/role="timer" with aria-live="polite". -->
 					<p class="timer" id="timer">25:00</p>
 					<div class="buttons">
+						<!-- A11Y: icon-only buttons need aria-label ("Start", "Pause") and
+							type="button"; images inside should have alt="". -->
 						<button id="start-btn">
 							<image class="btn_img" src="images/play.svg"></image>
 						</button>
@@ -35,6 +53,9 @@
 						</button>
 					</div>
 				</div>
+				<!-- Source is empty and type says ogg while JS loads .mp3 files; remove the
+					<source> or make it consistent. Fallback text is fine. Also `preload="none"`
+					avoids loading before the user presses start. -->
 				<audio loop id="background-music">
 					<source src="" type="audio/ogg" />
 					Your browser does not support the audio element.

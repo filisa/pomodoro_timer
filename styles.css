@@ -1,3 +1,14 @@
+/* REVIEW (general):
+ * - Define colors, fonts and radii as custom properties in :root (--color-primary: #f5764c,
+ *   etc.). The same hex values are repeated throughout the file.
+ * - Several variables are used but never defined (--background, --font); they silently
+ *   fall back to defaults. Define them or remove the usages.
+ * - Group media queries / use mobile-first (min-width) rather than ranges that overlap.
+ * - Prefer class selectors over ids (#start-btn, #paused-state-overlay) for styling.
+ * - Add font-display: swap to @font-face; the fonts/ and .ttf files referenced here
+ *   are not in the repo (404s). Move the second @font-face to the top with the first.
+ * - Consider prefers-reduced-motion to disable the rotate/pulse animations.
+ */
 @font-face {
 	font-family: "Kompot";
 	src: url(fonts/KompotDisplayDemo.otf);
@@ -13,6 +24,7 @@
 
 html,
 body {
+	/* --background is undefined, so this declaration is invalid/ignored */
 	background-color: var(--background);
 	padding: 0;
 	margin: 0;
@@ -48,6 +60,8 @@ body {
 .main {
 	display: grid;
 	place-items: center;
+	/* DUPLICATE: z-index declared twice (the last wins). z-index values 2/100/101/10000
+	   should become named layers via custom properties. */
 	z-index: 2;
 	position: relative;
 	z-index: 101;
@@ -70,12 +84,15 @@ body {
 
 #start-btn,
 #pause-btn {
+	/* background-color: red is overridden by `background: none` - remove it. */
 	background-color: red;
 	background: none;
 	border: none;
 	padding: 0;
 	height: fit-content;
 
+	/* BUG-PRONE: nested `:hover` becomes `#start-btn :hover` (descendants), not the
+	   button itself. Use `&:hover` and add :focus-visible styles; also set cursor:pointer. */
 	:hover {
 		background-color: #f5764c;
 		border-radius: 20px;
@@ -97,11 +114,11 @@ h1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-family: var(--font);
+	font-family: var(--font); /* --font undefined */
 	font-weight: bold;
-	font-size: 8rem;
+	font-size: 8rem; /* use clamp() with vw units for fluid sizing, fewer media queries */
 	color: #e53c0d;
-	z-index: -4;
+	z-index: -4; /* has no effect without positioning */
 	margin: 0;
 }
 
@@ -110,6 +127,7 @@ h1 {
 	justify-content: center;
 	align-items: center;
 	font-size: 5rem;
+	/* Verdana listed twice. Add font-variant-numeric: tabular-nums so digits don't jitter. */
 	font-family: Verdana, "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 	font-weight: 900;
 	background-color: #f9c39a;
@@ -169,6 +187,8 @@ h1 {
 }
 
 /* mobile */
+/* Range syntax is valid but newer; ranges overlap (440px, 400px) and the "tablet" query
+   excludes widths >= 1100px entirely. Pick one consistent mobile-first breakpoint set. */
 @media (width<=440px) {
 	h1 {
 		font-size: clamp(50px, 5rem, 6rem);
@@ -247,6 +267,8 @@ h1 {
 	font-size: clamp(10px, 0.8rem, 0.8rem);
 }
 
+/* DEAD/INVALID: `display: "inline"` is invalid (no quotes) and .inline / .hidden are
+   not used in the HTML. Remove or fix. "tolltip" class is a typo of "tooltip". */
 .inline {
 	display: "inline";
 }
